@@ -119,4 +119,4 @@ A projekt célja egy olyan oktatási webplatform létrehozása (a *MyProfessor* 
 |---|---|---|---|
 | Idul Alexandra | `@Lexa7842` | Projektmenedzser, fejlesztő | Feladatok kiosztása, ütemezés, Adatbázis |
 | Busa Sarah Michelle | `@Rosebeth886` | Backend Fejlesztő | Backend API, Adatbázis architektúra |
-| Kovács Anabella | `@annabellakovacs` | Frontend Fejlesztő | Frontend UI/UX, Keresési és szűrési modulok |
+| Kovács Annabella | `@annabellakovacs` | Frontend Fejlesztő | Frontend UI/UX, Keresési és szűrési modulok |
