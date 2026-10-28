@@ -1,3 +1,8 @@
+# Sequence diagram
+
+A diagram az "Tanárok keresése", az "Idősáv kiválasztása" és az "Órafoglalás beküldése" használati esetek lépéseit mutatja be időrendben, a magantanar-kereso.hu szereplői közötti üzenetekkel.
+
+```mermaid
 sequenceDiagram
     actor D as Diák
     participant B as Böngésző

@@ -1,13 +1,8 @@
+Entity Relationship Diagram
+A diagram a magantanar-kereso.hu.hu által tárolt összes adatot és azok kapcsolatait mutatja be.
+
 
 erDiagram
-    Felhasznalok ||--o| TanariProfilok : "rendelkezik"
-    TanariProfilok ||--o{ SzabadIdopontok : "megadja"
-    TanariProfilok ||--o{ TanarTantargyai : "tanitja"
-    Tantargyak ||--o{ TanarTantargyai : "szerepel"
-    Felhasznalok ||--o{ Foglalasok : "letrehozza"
-    SzabadIdopontok ||--o| Foglalasok : "tartozik"
-    Foglalasok ||--o| Ertekelesek : "ertekelheto"
-    Felhasznalok ||--o{ Ertekelesek : "irja"
 
     Felhasznalok {
         int id PK
