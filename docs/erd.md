@@ -1,7 +1,9 @@
-Entity Relationship Diagram
-A diagram a magantanar-kereso.hu.hu által tárolt összes adatot és azok kapcsolatait mutatja be.
+## Entity Relationship Diagram
+
+A diagram a magantanar-kereso.hu.hu által tárolt összes adatot és azok kapcsolatait mutatja be a projekten.
 
 
+```mermaid
 erDiagram
 
     Felhasznalok {
