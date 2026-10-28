@@ -1,60 +1,42 @@
 
+# Use Case diagram
+
+A diagram a magantanar-kereso.hu.hu funkcióit mutatja be a felhasználók szemszögéből, a rendszer belső működése nélkül.
+
+```mermaid
 flowchart LR
-    Latogato["Látogató"]
-    Diak["Diák"]
-    Tanar["Tanár"]
-    Admin["Adminisztrátor"]
+    L["👤 Látogató / Diák"]
+    T["👤 Tanár"]
+    A["👤 Adminisztrátor"]
 
-    subgraph Rendszer["Tanárfoglaló webalkalmazás"]
+    subgraph R["magantanar-kereso.hu"]
         direction TB
-
-        UC1(["Tanárok keresése"])
-        UC2(["Keresés szűrése"])
-        UC3(["Tanári profil megtekintése"])
-        UC4(["Regisztráció"])
-        UC5(["Bejelentkezés"])
-
-        UC6(["Szabad időpontok megtekintése"])
-        UC7(["Óra foglalása"])
-        UC8(["Saját foglalások kezelése"])
-        UC9(["Foglalás lemondása"])
-        UC10(["Tanári profil értékelése"])
-
-        UC11(["Tanári profil kezelése"])
-        UC12(["Tantárgyak kezelése"])
-        UC13(["Szabad időpontok kezelése"])
-        UC14(["Foglalási kérelmek kezelése"])
-        UC15(["Óra megtartottként jelölése"])
-
-        UC16(["Felhasználók kezelése"])
-        UC17(["Tanári profilok moderálása"])
+        UC1(["Kezdőlap és profilok böngészése"])
+        UC2(["Regisztráció és bejelentkezés"])
+        UC3(["Összetett keresés és szűrés"])
+        UC4(["Idősáv kiválasztása"])
+        UC5(["Órafoglalás beküldése"])
+        UC6(["Tanári profil és idősávok kezelése"])
+        UC7(["Foglalások állapotkezelése"])
+        UC8(["Értékelés és vélemény írása"])
+        UC9(["Adminisztrációs moderálás"])
     end
 
-    Latogato --- UC1
-    Latogato --- UC2
-    Latogato --- UC3
-    Latogato --- UC4
+    L --- UC1
+    L --- UC2
+    L --- UC3
+    L --- UC4
+    L --- UC5
+    L --- UC8
+    UC5 -. "include" .-> UC2
+    UC4 -. "extend" .-> UC3
 
-    Diak --- UC1
-    Diak --- UC2
-    Diak --- UC3
-    Diak --- UC5
-    Diak --- UC6
-    Diak --- UC7
-    Diak --- UC8
-    Diak --- UC9
-    Diak --- UC10
+    T --- UC2
+    T --- UC6
+    T --- UC7
 
-    Tanar --- UC5
-    Tanar --- UC11
-    Tanar --- UC12
-    Tanar --- UC13
-    Tanar --- UC14
-    Tanar --- UC15
-
-    Admin --- UC5
-    Admin --- UC16
-    Admin --- UC17
-
-    UC10 -.-> Megjegyzes["Értékelés csak legalább egy megtartott óra után adható"]
-
+    A --- UC2
+    A --- UC9
+    UC6 -. "include" .-> UC2
+    UC7 -. "include" .-> UC2
+    UC9 -. "include" .-> UC2
