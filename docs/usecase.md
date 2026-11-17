@@ -4,42 +4,20 @@
 A diagram a magantanar-kereso.hu.hu funkcióit mutatja be a felhasználók szemszögéből, a rendszer belső működése nélkül.
 
 ```mermaid
-flowchart LR
-    L["👤 Látogató / Diák"]
-    T["👤 Tanár"]
-    A["👤 Adminisztrátor"]
-
-    subgraph R["magantanar-kereso.hu"]
-        direction TB
-        UC1(["Kezdőlap és profilok böngészése"])
-        UC2(["Regisztráció és bejelentkezés"])
-        UC3(["Összetett keresés és szűrés"])
-        UC4(["Idősáv kiválasztása"])
-        UC5(["Órafoglalás beküldése"])
-        UC6(["Tanári profil és idősávok kezelése"])
-        UC7(["Foglalások állapotkezelése"])
-        UC8(["Értékelés és vélemény írása"])
-        UC9(["Adminisztrációs moderálás"])
-    end
-
-    L --- UC1
-    L --- UC2
-    L --- UC3
-    L --- UC4
-    L --- UC5
-    L --- UC8
-    UC5 -. "include" .-> UC2
-    UC4 -. "extend" .-> UC3
-
-    T --- UC2
-    T --- UC6
-    T --- UC7
-
-    A --- UC2
-    A --- UC9
-    UC6 -. "include" .-> UC2
-    UC7 -. "include" .-> UC2
-    UC9 -. "include" .-> UC2
+flowchart TB
+    L["👤 Látogató / Diák"] -- s1 --> usecaseL["Kezdőlap és profilok<br>böngészése"]
+    L -- s2 --> usecaseL2["Regisztráció és<br>bejelentkezés"]
+    L -- s3 --> usecaseL3["Összetett keresés<br>és szűrés"]
+    L -- s4 --> usecaseL4["Idősáv kiválasztása"]
+    L -- s5 --> usecaseL5["Órafoglalás<br>beküldése"]
+    L -- s6 --> usecaseL6["Értékelés és vélemény<br>írása"]
+    usecaseL5 -.-> usecaseL2
+    usecaseL4 -.-> usecaseL3
+    T["👤 Tanár"] -- s7 --> usecaseL2
+    T -- s8 --> usecaseT["Tanári profil és<br>idősávok kezelése"]
+    T -- s9 --> usecaseT2["Foglalások<br>állapotkezelése"]
+    usecaseT -.-> usecaseL2
+    usecaseT2 -.-> usecaseL2
 ```
 
 ## Használati esetek 
@@ -54,8 +32,6 @@ flowchart LR
 |  Diák  | Értékelés és vélemény írása | A diák megnyitja a tanár profilját, a véleményeknél szöveges és csillagos értékelést ad megadott karakterszámban |
 | Tanár | Regisztráció és bejelentkezés | A tanár megnyitja a regisztrációs vagy bejelentkezési oldalt, és megadja a szükséges adatokat. |
 | Tanár | Tanári profil és idősávok kezelése | A tanár megnyitja a profilszerkesztő felületet, és módosítja a bemutatkozását, az óradíját vagy a szabad időpontjait. |
-| Tanár | Foglalások állapotkezelése | A tanár megnyitja a foglalásai listáját, kiválaszt egy foglalást, majd módosítja annak állapotát. |
-| Adminisztrátor | Regisztráció és bejelentkezés | Az adminisztrátor megnyitja a bejelentkezési oldalt, és megadja a belépési adatait. |
-| Adminisztrátor | Adminisztrációs moderálás | Az adminisztrátor megnyitja az adminisztrációs felületet, és elvégzi a moderálási feladatokat. |
+| Tanár | Foglalások állapotkezelése | A tanár megnyitja a foglalásai listáját, kiválaszt egy 
 
 A folytonos vonal azt jelzi, melyik szereplő használja az adott funkciót. Az `include` azt jelenti, hogy az egyik használati eset mindig magában foglalja a másikat. Az `extend` azt jelenti, hogy egy használati eset egy másikat bővít ki, de nem minden esetben kötelező.
