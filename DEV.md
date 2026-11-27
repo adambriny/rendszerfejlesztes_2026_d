@@ -40,29 +40,22 @@ A webalkalmazás használata közben mindkét szolgáltatásnak futnia kell:
 
 1. Keressük meg a XAMPP telepítési könyvtárát.
 2. Nyissuk meg a `htdocs` mappát, amely Windows rendszeren alapértelmezetten a `C:\xampp\htdocs` útvonalon található.
-3. Másoljuk vagy klónozzuk a projektet ebbe a mappába.
+3. Másoljuk vagy klónozzuk a projektet ebbe a mappába, pl.:  `C:\xampp\htdocs\Website`
 
-Például:
-
-```text
-C:\xampp\htdocs\Website
-```
 
 A PHP-fájlok relatív elérési útjait meg kell őrizni, vagy mappák átrendezése esetén frissíteni kell a hivatkozásokat és a `require_once()` utasításokat.
 
 ### 3.3. Az adatbázis létrehozása a phpMyAdmin felületén
 
 1. Ellenőrizzük, hogy az Apache és a MySQL fut-e a XAMPP-ban.
-2. Böngészőben nyissuk meg a következő címet:
-
-   `http://localhost/phpmyadmin`
+2. Böngészőben nyissuk meg a következő címet: `http://localhost/phpmyadmin`
 
 3. Hozzunk létre egy `adatbazis` nevű adatbázist.
 4. Amennyiben rendelkezésre áll a projekt SQL-exportfájlja, válasszuk ki az adatbázist, majd az **Importálás (Import)** menüponttal töltsük be.
 
 A jelenlegi PHP-kód a `users` táblát használja, többek között az alábbi mezőkkel: `id`, `username`, `display_name`, `email`, `password`, `role`.
 
-> **Fontos:** a phpMyAdmin az adatbázis böngészőből elérhető kezelőfelülete. Maga az adatbázis a MySQL-szolgáltatásban fut. Az SQL-exportfájl pontos neve és az adatbázis teljes sémája még dokumentálandó.
+> **Fontos:**  Maga az adatbázis a MySQL-szolgáltatásban fut. Az SQL-exportfájl pontos neve és az adatbázis teljes sémája még dokumentálandó.
 
 ## 4. Adatbázis-kapcsolat beállítása
 
@@ -86,10 +79,8 @@ Ha a helyi adatbázis neve, felhasználóneve vagy jelszava eltér, a helyi konf
 ## 5. A webalkalmazás helyi futtatása
 
 1. Indítsuk el az **Apache** és **MySQL** szolgáltatásokat a XAMPP Control Panelben.
-2. Ellenőrizzük, hogy létezik-e az (`adatbázis neve`) adatbázis, és rendelkezik-e a szükséges táblákkal.
-3. Nyissuk meg a böngészőben a projekt címét. `Website` mappanév:
-
-   `http://localhost/Website/`
+2. Ellenőrizzük a `http://localhost/phpmyadmin/` oldalon, hogy létezik-e az `adatbazis` nevű adatbázis és rendelkezik-e a szükséges táblákkal.
+3. Nyissuk meg a böngészőben a projekt címét: `http://localhost/Website/`
 
 A kezdőoldal az `index.php`, amelyről a diákbejelentkezés, a tanári bejelentkezés és a regisztráció érhető el.
 
@@ -97,33 +88,21 @@ A kezdőoldal az `index.php`, amelyről a diákbejelentkezés, a tanári bejelen
 
 | Fájl | Feladat |
 |---|---|
-| `index.php` | Kezdőoldal, navigáció a bejelentkezési és regisztrációs felületekre. |
-| `login_student.php` | Diákbejelentkezés, hitelesítés és szerepkör-ellenőrzés. |
-| `login_teacher.php` | Tanári bejelentkezés, hitelesítés és szerepkör-ellenőrzés. |
+| `index.php` | A webalkalmazás kezdőoldala, ahonnan elérhető a diák- és tanári bejelentkezés, valamint a regisztráció. |
+| `login_student.php` | Diákok bejelentkezésének kezelése, a megadott adatok ellenőrzése, a jelszó hitelesítése és a diák szerepkör ellenőrzése. Sikeres bejelentkezés után a diák vezérlőpultjára irányít. |
+| `login_teacher.php` | Tanárok bejelentkezésének kezelése, a megadott adatok ellenőrzése, a jelszó hitelesítése és a tanári szerepkör ellenőrzése. Sikeres bejelentkezés után a tanári vezérlőpultra irányít. |
 | `reg.php` | Regisztráció és a jelszó hash-elt formában történő mentése. |
 | `student_dashboard.php` | Bejelentkezett diákok vezérlőpultja. |
 | `teacher_dashboard.php` | Bejelentkezett tanárok vezérlőpultja. |
 | `config.php` | Adatbázis-kapcsolati paraméterek. |
 | `dbconnect.php` | PDO-alapú adatbázis-kapcsolat létrehozása. |
 
-## 7. Bejelentkezés és munkamenet-kezelés
 
-A diákok és a tanárok külön bejelentkezési oldalt használnak.
-
-1. A felhasználó megadja a felhasználónevét és jelszavát.
-2. A PHP-kód megkeresi a felhasználót a MySQL-adatbázisban.
-3. A megadott jelszót a `password_verify()` függvénnyel ellenőrzi.
-4. A `role` mező alapján ellenőrzi, hogy a felhasználó a megfelelő bejelentkezési felületet használja-e.
-5. Sikeres hitelesítés esetén a felhasználói adatok a PHP-munkamenetbe (`$_SESSION`) kerülnek.
-6. A rendszer a megfelelő vezérlőpultra irányítja a felhasználót.
-
-A regisztráció során a jelszó a `password_hash()` függvénnyel kerül feldolgozásra, így az adatbázisban nem a nyers jelszó tárolódik.
-
-A jelenlegi kódban az **Emlékezz rám** lehetőség sütit (cookie-t) használ az automatikus bejelentkezéshez. A vezérlőpultok ellenőrzik a munkamenetet és a szerepkört. A kijelentkezés törli a munkamenetben tárolt felhasználói adatot és lejárttá teszi a bejelentkezési sütit.
 
 ## 8. Fejlesztési és biztonsági tudnivalók
 
 - Az adatbázis-lekérdezésekhez használjunk előkészített PDO-utasításokat.
+- A bejelentkezési rendszer munkameneteket (session) és cookie-kat használ. Az „Emlékezz rám” funkció lehetővé teszi a felhasználó automatikus bejelentkezését a következő látogatáskor.
 - A HTML-ben megjelenített felhasználói adatokat megfelelően kezeljük, például `htmlspecialchars()` használatával.
 - Új fájlok hozzáadásakor vagy áthelyezésekor ellenőrizzük a relatív útvonalakat.
 - Az adatbázis szerkezetének változtatásakor frissítsük az SQL-exportot és a dokumentációt.
